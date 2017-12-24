@@ -2,10 +2,10 @@ pragma solidity ^0.4.0;
 
 contract HelloSolidity {
   // The last user to have used this system.
-  address lastUser;
+  address public lastUser;
   
   // The greeting
-  string greeting;
+  string public greeting;
     
   function HelloSolidity(string newGreeting) public {
     greeting = newGreeting;
