@@ -21,7 +21,7 @@ contract HelloSolidity {
   }
 
 
-  function cheapHello() public constant returns (string, address) {
+  function cheapHello() public view returns (string, address) {
     return (greeting, lastUser);
   }
 }
