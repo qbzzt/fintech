@@ -9,6 +9,7 @@ contract HelloSolidity {
     
   function HelloSolidity(string newGreeting) public {
     greeting = newGreeting;
+    lastUser = msg.sender;
   }
   
   
