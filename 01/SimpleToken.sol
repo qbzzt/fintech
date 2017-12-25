@@ -32,7 +32,7 @@ contract SimpleToken {
         require(msg.sender == issuer);
         
         // Avoid overflows
-        require(totalSupply + amount > totalSuppy);
+        require(totalSupply + _amount > totalSupply);
         
         balance[issuer] += _amount;
         totalSupply += _amount;
