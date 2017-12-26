@@ -72,16 +72,17 @@ contract ERC20_Token {
 
     // The ERC20 standard includes allowances - but for the sake of simplicity 
     // we do not implement them yet
-    function approve(address _spender, uint256 _value) public returns (bool success) {
+    function approve(address _spender, uint256 _value) 
+            public returns (bool success) {
         return false;    
     }
     
-    function allowance(address _owner, address _spender) public view returns (uint256 remaining) {
+    function allowance(address _owner, address _spender) 
+            public view returns (uint256 remaining) {
         return 0;        
     }
 
     
-    // Events are emitted to the log 
     event Transfer(address indexed _from, address indexed _to, uint256 _value);
     event Approval(address indexed _owner, address indexed _spender, uint256 _value);    
 
