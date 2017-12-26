@@ -67,13 +67,13 @@ contract SimpleToken {
     
     
     // Pay an amount
-    function pay(uint256 _amount, address _destination) public {
+    function pay(uint256 _amount, address _dst) public {
         require (_amount <= balance[msg.sender]);
         
         // Check for overflows
-        require (balance[_destination] + _amount > balance[_destination]);
+        require (balance[_dst] + _amount > balance[_dst]);
         
-        balance[_destination] += _amount;
+        balance[_dst] += _amount;
         balance[msg.sender] -= _amount;
     }   
 }
