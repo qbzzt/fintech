@@ -36,11 +36,13 @@ contract ERC20_Token {
     
     
     // The ERC20 standard has two transfer functions. We unify them with the same underlying function
-    function transfer(address _to, uint256 _value) public returns (bool success) {
+    function transfer(address _to, uint256 _value) public 
+        returns (bool success) {
       return moveTokens(msg.sender, _to, _value);
     }
     
-    function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {
+    function transferFrom(address _from, address _to, uint256 _value) public 
+        returns (bool success) {
       return moveTokens(_from, _to, _value);    
     }
     
