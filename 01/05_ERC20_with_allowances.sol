@@ -65,7 +65,7 @@ contract ERC20_Token {
         // Only allow people to move tokens out of their own accounts, or if their 
         // allowance is sufficient
         require ((_from == msg.sender) ||
-            (allowance[_from][msg.sender] <= _amount));
+            (allowance[_from][msg.sender] >= _amount));
         
         balance[_to] += _amount;
         balance[_from] -= _amount;
