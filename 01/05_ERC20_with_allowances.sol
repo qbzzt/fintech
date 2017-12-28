@@ -13,6 +13,11 @@ contract ERC20_Token {
     
     // The balances of each user
     mapping (address => uint256) public balance;
+    
+    // Allowances users give others to spend up to a certain amount out of their accounts
+    // The value allowance[owner][spender] is the allowance that owner lets spender
+    // send from the owner's account
+    mapping (address => mapping (address => uint256)) public allowance;
 
     function ERC20_Token(string tokenName, string tokenSymbol) public {
         // In the beginning, there is no money
@@ -57,11 +62,18 @@ contract ERC20_Token {
         // Use >= because it is legitimate to transfer zero tokens
         require (balance[_to] + _amount >= balance[_to]);
         
-        // For now, only allow people to move tokens out of their own accounts
-        require (_from == msg.sender);
+        // Only allow people to move tokens out of their own accounts, or if their 
+        // allowance is sufficient
+        require ((_from == msg.sender) ||
+            (allowance[_from][msg.sender] <= _amount));
         
         balance[_to] += _amount;
         balance[_from] -= _amount;
+        
+        // If the spending was from an allowance, reduce it
+        if (_from != msg.sender) {
+            allowance[_from][msg.sender] -= _amount;
+        }
         
         // Log the transfer
         Transfer(_from, _to, _amount);
@@ -70,16 +82,18 @@ contract ERC20_Token {
     }   
 
 
-    // The ERC20 standard includes allowances - but for the sake of simplicity 
-    // we do not implement them yet
+    // Allowances, let others spend out of your account
+    
     function approve(address _spender, uint256 _value) 
             public returns (bool success) {
-        return false;    
+        allowance[msg.sender][_spender] = _amount;            
+        Approval(msg.sender, _spender, _value);
+        return true;
     }
     
     function allowance(address _owner, address _spender) 
             public view returns (uint256 remaining) {
-        return 0;        
+        return allowance[_owner][_spender];        
     }
 
     
